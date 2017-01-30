@@ -1,0 +1,32 @@
+<div ng-model="tree" ng-controller="treeController">
+  <div>
+    <form ng-submit="buildTree()">
+      <label>
+        Enter Character Name:
+        <input  type="text"
+                ng-value="characterName"
+                ng-model="characterName"
+        />
+      </label>
+      <input type="submit" value="Submit"/>
+    </form>
+  </div>
+
+  <!-- Here, we are DEFINING a template with the name 'familyTree'.
+  We can later use ng-include, referencing the name of this template, to render this template inside of that target element. (see below) -->
+  <script type="text/ng-template" id="familyTree">
+    {{ child.name || child }}
+    <ul ng-if="child.children">
+      <!-- TODO: Recursively render child views  -->
+    </ul>
+  </script>
+
+  <div ng-if="tree">
+    <h4> {{tree.name}} </h4>
+    <ul>
+      <!-- Here, we are RENDERING the inline template defined above. The template contents will be inside of the li. Try it out! -->
+      <li ng-repeat="child in tree.children" ng-include="'familyTree'"></li>
+    </ul>
+  </div>
+
+</div>
